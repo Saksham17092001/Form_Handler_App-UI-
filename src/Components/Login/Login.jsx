@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { login } from '../../services/server' // Adjust path if necessary
 import styles from "./Login.module.css"; // Assuming you create a Login.module.css for styling
 import googleImg from '../../assets/google.png'
@@ -9,6 +9,13 @@ const Login = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(()=>{
+    if(localStorage.getItem('token')){
+      alert('Already logged in')
+      navigate('/dashboard')
+    }
+  },[])
  
 
   const handleSubmit = async (e) => {
@@ -19,12 +26,14 @@ const Login = () => {
       if (response.ok) {
         const result = await response.json();
         alert("Login successful");
-        console.log(result);
+        localStorage.setItem('token', result.token); // Store JWT token
+        localStorage.setItem('user', JSON.stringify(result.user));
+        navigate('/dashboard'); // Redirect to dashboard
       } 
     }
     
      catch (err) {
-      alert("Login error:", err);
+      alert("Login error:", err.message);
     }
   
 }
@@ -32,6 +41,7 @@ const Login = () => {
   const handleBack = ()=>{
     navigate(-1)
   }
+
 
   return (
     <>

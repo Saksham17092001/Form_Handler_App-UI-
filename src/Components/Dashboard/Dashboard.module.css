@@ -1,0 +1,82 @@
+.dashboard {
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.workspace {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.toggleButton {
+    padding: 8px 16px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.createFolder {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.createFolder input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.createFolder button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.folderContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.folderCard {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Light Mode */
+.light {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --button-bg: #f0f0f0;
+    --button-text: #000000;
+    --card-bg: #f9f9f9;
+}
+
+/* Dark Mode */
+.dark {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --button-bg: #333333;
+    --button-text: #ffffff;
+    --card-bg: #1e1e1e;
+}
