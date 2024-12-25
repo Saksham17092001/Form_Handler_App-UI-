@@ -1,0 +1,59 @@
+.modalOverlay {
+    position: fixed;
+    top: 25%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: linear-gradient(0deg, #121212, #121212),
+    linear-gradient(0deg, #18181B, #18181B);
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    border: 1px solid #47474A;
+    box-shadow: 0px 0px 3.8px 0px #FFFFFF40;
+}
+h2{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+    margin-top: 10px;
+}
+.actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+input{
+    background: #1F1F23;
+    width: 90%;
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.confirmButton {
+    background: transparent;
+    color: #4B83FF;
+    border: none;
+    padding: 10px 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-right: 1px solid #47474A;
+}
+
+.cancelButton {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
