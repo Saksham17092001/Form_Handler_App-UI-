@@ -72,10 +72,7 @@ const Dashboard = () => {
             <div className={styles.header}>
                 <div className={styles.left}></div>
                 <div className={styles.workspace}>
-                    <span
-                        className={styles.workspaceTitle}
-                        onClick={() => setShowDropdown(!showDropdown)}
-                    >
+                    <span className={styles.workspaceTitle} onClick={() => setShowDropdown(!showDropdown)}>
                         {user.name}'s Workspace
                         <img
                             src={showDropdown ? arrowUp : arrowDown}
@@ -91,9 +88,7 @@ const Dashboard = () => {
                             >
                                 Settings
                             </button>
-                            <button className={styles.dropdownItem} onClick={handleLogout}>
-                                Log Out
-                            </button>
+                            <button className={styles.dropdownItem} onClick={handleLogout}> Log Out</button>
                         </div>
                     )}
                 </div>
