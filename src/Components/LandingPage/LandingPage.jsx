@@ -12,6 +12,9 @@ function LandingPage() {
   const handleNavigate = ()=>{
     navigate('/login')
   }
+  const handleNavigate2 = ()=>{
+    navigate('/register')
+  }
   return (
     <div className={styles.app}>
     {/* Navbar */}
@@ -19,7 +22,7 @@ function LandingPage() {
       <div className={styles.navbarLogo}><img src={logoImg} className={styles.logoImg}></img>FormBot</div>
       <div className={styles.navbarLinks}>
         <button className={styles.signIn} onClick={handleNavigate}>Sign in</button>
-        <button className={styles.createButton} onClick={handleNavigate}>Create a FormBot</button>
+        <button className={styles.createButton} onClick={handleNavigate2}>Create a FormBot</button>
       </div>
     </nav>
 
@@ -31,7 +34,7 @@ function LandingPage() {
         <p>
           Typebot gives you powerful blocks to create unique chat experiences. Embed them anywhere on your web/mobile apps and start collecting results like magic.
         </p>
-        <button className={styles.ctaButton} onClick={handleNavigate}>Create a FormBot for free</button>
+        <button className={styles.ctaButton} onClick={handleNavigate2}>Create a FormBot for free</button>
       </div>
       <div>
         <img src={semiImg}/>

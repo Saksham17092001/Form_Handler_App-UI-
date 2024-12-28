@@ -5,6 +5,7 @@ import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
 import Dashboard from './Components/Dashboard/Dashboard'
 import Setting from './Components/Setting/Setting'
+import FormEditor from './Components/FormEditor/FormEditor'
 
 function App() {
 
@@ -16,6 +17,9 @@ function App() {
     <Route path='/login' element= {<Login/>}/>
     <Route path='/dashboard' element={<Dashboard/>}/>
     <Route path ='/settings' element={<Setting/>}/>
+    <Route path="/form/new" element={<FormEditor />} />
+    <Route path="/form/new/:folderId" element={<FormEditor />} />
+    <Route path="/form/:formId" element={<FormEditor />} />
    </Routes>
    </BrowserRouter>
   )

@@ -75,3 +75,56 @@ export const updateUser = async (id, data) => {
     if (!response.ok) throw new Error('Error updating user');
     return response.json();
 };
+
+export const createForm = async (data) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${URL}/form/create`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Error creating form');
+    return response.json();
+};
+
+export const updateForm = async (formId, data) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${URL}/form/update/${formId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Error updating form');
+    return response.json();
+};
+
+export const getForms = async () => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${URL}/form/workspace`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    });
+    if (!response.ok) throw new Error('Error fetching forms');
+    return response.json();
+};
+
+export const deleteForm = async (formId) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${URL}/form/delete/${formId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+    if (!response.ok) throw new Error('Error deleting form');
+    return response.json();
+};

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getWorkspaceData, createFolder, deleteFolder } from '../../services/server';
+import { getWorkspaceData, createFolder, deleteFolder, getForms, deleteForm } from '../../services/server';
 import styles from './Dashboard.module.css';
 import CreateModal from '../../Modals/CreateModal/CreateModal';
 import DeleteModal from '../../Modals/DeleteModal/DeleteModal';
-import { useNavigate } from 'react-router-dom'; // For navigation
+import ShareModal from '../../Modals/ShareModal/ShareModal';
+import { useNavigate } from 'react-router-dom';
 import deleteImg from '../../assets/delete.png';
 import createImg from '../../assets/create.png';
 import arrowDown from '../../assets/arrowdown.png';
@@ -11,20 +12,27 @@ import arrowUp from '../../assets/arrowup.png';
 
 const Dashboard = () => {
     const [folders, setFolders] = useState([]);
+    const [forms, setForms] = useState([]);
     const [newFolderName, setNewFolderName] = useState('');
     const [darkMode, setDarkMode] = useState(false);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showShareModal, setShowShareModal] = useState(false);
     const [folderToDelete, setFolderToDelete] = useState(null);
-    const [showDropdown, setShowDropdown] = useState(false); // Toggle for dropdown menu
+    const [formToShare, setFormToShare] = useState(null);
+    const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem('user'));
 
     const fetchWorkspaceData = async () => {
         try {
-            const data = await getWorkspaceData();
-            setFolders(data.folders);
+            const [folderData, formData] = await Promise.all([
+                getWorkspaceData(),
+                getForms()
+            ]);
+            setFolders(folderData.folders);
+            setForms(formData.forms);
         } catch (error) {
             console.error(error.message);
         }
@@ -53,6 +61,20 @@ const Dashboard = () => {
         }
     };
 
+    const handleDeleteForm = async (formId) => {
+        try {
+            await deleteForm(formId);
+            fetchWorkspaceData();
+        } catch (error) {
+            console.error('Error deleting form:', error);
+        }
+    };
+
+    const handleShareForm = (formId) => {
+        setFormToShare(formId);
+        setShowShareModal(true);
+    };
+
     const toggleDarkMode = () => {
         setDarkMode((prev) => !prev);
     };
@@ -60,7 +82,7 @@ const Dashboard = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        navigate('/login'); // Redirect to login
+        navigate('/login');
     };
 
     useEffect(() => {
@@ -88,7 +110,9 @@ const Dashboard = () => {
                             >
                                 Settings
                             </button>
-                            <button className={styles.dropdownItem} onClick={handleLogout}> Log Out</button>
+                            <button className={styles.dropdownItem} onClick={handleLogout}>
+                                Log Out
+                            </button>
                         </div>
                     )}
                 </div>
@@ -99,6 +123,7 @@ const Dashboard = () => {
                     <button className={styles.shareBtn}>Share</button>
                 </div>
             </div>
+
             <div className={styles.createFolder}>
                 <button
                     onClick={() => setShowCreateModal(true)}
@@ -111,19 +136,60 @@ const Dashboard = () => {
                     {folders.map((folder) => (
                         <div key={folder._id} className={styles.folderCard}>
                             <p>{folder.name}</p>
-                            <button
-                                className={styles.deleteButton}
-                                onClick={() => {
-                                    setFolderToDelete(folder._id);
-                                    setShowDeleteModal(true);
-                                }}
-                            >
-                                <img src={deleteImg} alt="Delete" />
-                            </button>
+                                <button
+                                    className={styles.deleteButton}
+                                    onClick={() => {
+                                        setFolderToDelete(folder._id);
+                                        setShowDeleteModal(true);
+                                    }}
+                                >
+                                    <img src={deleteImg} alt="Delete" />
+                                </button>
+                            </div>
+
+                    ))}
+                </div>
+            </div>
+
+            <div className={styles.formSection}>
+                <button
+                    onClick={() => navigate('/form/new')}
+                    className={styles.formBtn}
+                >
+                    +
+                    <div>Create a typebot</div>
+                </button>
+                <div className={styles.formGrid}>
+                    {forms.map((form) => (
+                        <div key={form._id} className={styles.formCard}>
+                            <div className={styles.formHeader}>
+                                <h3>{form.name}</h3>
+                                <div className={styles.formActions}>
+                                    <button
+                                        className={styles.editButton}
+                                        onClick={() => navigate(`/form/${form._id}`)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className={styles.shareButton}
+                                        onClick={() => handleShareForm(form._id)}
+                                    >
+                                        Share
+                                    </button>
+                                    <button
+                                        className={styles.deleteButton}
+                                        onClick={() => handleDeleteForm(form._id)}
+                                    >
+                                        <img src={deleteImg} alt="Delete" />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>
             </div>
+
             <CreateModal
                 isVisible={showCreateModal}
                 onClose={() => setShowCreateModal(false)}
@@ -136,6 +202,16 @@ const Dashboard = () => {
                 onClose={() => setShowDeleteModal(false)}
                 onDelete={handleDeleteFolder}
             />
+            {showShareModal && (
+                <ShareModal
+                    isVisible={showShareModal}
+                    onClose={() => {
+                        setShowShareModal(false);
+                        setFormToShare(null);
+                    }}
+                    formId={formToShare}
+                />
+            )}
         </div>
     );
 };
