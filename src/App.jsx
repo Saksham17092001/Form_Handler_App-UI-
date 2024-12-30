@@ -18,7 +18,6 @@ function App() {
     <Route path='/dashboard' element={<Dashboard/>}/>
     <Route path ='/settings' element={<Setting/>}/>
     <Route path="/form/new" element={<FormEditor />} />
-    <Route path="/form/new/:folderId" element={<FormEditor />} />
     <Route path="/form/:formId" element={<FormEditor />} />
    </Routes>
    </BrowserRouter>
