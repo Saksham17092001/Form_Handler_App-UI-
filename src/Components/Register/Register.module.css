@@ -103,4 +103,10 @@ h6{
     gap: 5px;
 }
   
-  
+.errorMessage {
+  color: red;
+  font-size: 0.75rem;
+}
+.errorMessage p{
+  margin-top: 5px;
+}

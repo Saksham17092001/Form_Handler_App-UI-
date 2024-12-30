@@ -1,44 +1,69 @@
 import React, { useState } from 'react';
 import styles from './ShareModal.module.css';
+import { sendInvite, generateShareLink } from '../../services/server';
+import closeImg from '../../assets/close.png';
 
- const ShareModal = ({ onClose }) => {
+const ShareModal = ({ isVisible, onClose, workspaceId }) => {
     const [email, setEmail] = useState('');
+    const [permission, setPermission] = useState('view'); // Default to 'view'
+    const [shareLink, setShareLink] = useState('');
 
-    const handleSendInvite = () => {
-        // Implement email invitation logic
+    const handleSendInvite = async () => {
+        try {
+            await sendInvite({ email, permission, workspaceId });
+            alert('Invite sent successfully!');
+        } catch (error) {
+            console.error('Error sending invite:', error.message);
+        }
     };
 
-    const handleCopyLink = () => {
-        // Implement link copying logic
+    const handleGenerateLink = async () => {
+        try {
+            const { link } = await generateShareLink({ permission, workspaceId });
+            setShareLink(link);
+        } catch (error) {
+            console.error('Error generating share link:', error.message);
+        }
     };
+
+    if (!isVisible) return null;
 
     return (
         <div className={styles.shareModalOverlay}>
             <div className={styles.shareModal}>
-                <div className={styles.modalHeader}>
-                    <h2>Share Form</h2>
-                    <button onClick={onClose}>×</button>
+                <button onClick={onClose} className={styles.closeButton}><img src={closeImg}/></button>
+                <div className={styles.inviteSection}>
+                    <p>Invite by Email</p>
+                    <input
+                        type="email"
+                        placeholder="Enter email id"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    {/* <select
+                        value={permission}
+                        onChange={(e) => setPermission(e.target.value)}
+                    >
+                        <option value="view">View</option>
+                        <option value="edit">Edit</option>
+                    </select> */}
+                    <button onClick={handleSendInvite} className={styles.inviteBtn}>Send Invite</button>
                 </div>
-                <div className={styles.modalContent}>
-                    <div className={styles.section}>
-                        <h3>Invite by Email</h3>
-                        <div className={styles.emailInput}>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Enter email address"
-                            />
-                            <button onClick={handleSendInvite}>Send Invite</button>
-                        </div>
-                    </div>
-                    <div className={styles.section}>
-                        <h3>Share Link</h3>
-                        <button onClick={handleCopyLink}>Copy Link</button>
-                    </div>
+                <div className={styles.linkSection}>
+                    <p>Invite by Link</p>
+                    {/* <select
+                        value={permission}
+                        onChange={(e) => setPermission(e.target.value)}
+                    >
+                        <option value="view">View</option>
+                        <option value="edit">Edit</option>
+                    </select> */}
+                    <button onClick={handleGenerateLink} className={styles.inviteBtn}>Copy Link</button>
+                    {shareLink && <input type="text" readOnly value={shareLink} />}
                 </div>
             </div>
         </div>
     );
 };
+
 export default ShareModal;

@@ -4,7 +4,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,65 +11,51 @@
 }
 
 .shareModal {
-    background-color: #2a2a2a;
-    border-radius: 8px;
-    width: 400px;
-    max-width: 90%;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #18181B;
+    border-radius: 10px;
+    width: 40%;
+    height: auto;
+    background: #18181B;
+    box-shadow: 0px 0px 3.8px 0px #FFFFFF40;
+    padding: 2rem;
+}
+.shareModal p{
+    font-size: 1.25rem;
+    font-weight: 500;
+    
+}
+.shareModal input {
+    margin-bottom: 25px;
+    width: 95%;
+    background: #1F1F23;
+    color:  #A1A1A14F;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid #3a3a3a;
-}
-
-.modalHeader h2 {
-    margin: 0;
-    color: white;
-}
-
-.modalHeader button {
-    background: none;
+.closeButton{
+    background: #18181B;
+    box-shadow: none;
     border: none;
-    color: #999;
-    font-size: 1.5rem;
+    position: relative;
+    left: 100%;
+    top: -2.5vh;
     cursor: pointer;
 }
 
-.modalContent {
-    padding: 1rem;
-}
-
-.section {
-    margin-bottom: 1.5rem;
-}
-
-.section h3 {
-    color: #999;
-    margin-bottom: 0.5rem;
-}
-
-.emailInput {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.emailInput input {
-    flex: 1;
+.inviteBtn{
+    width: 100%;
+    background: #1A5FFF;
+    box-shadow: 0px 4px 10px 0px #E9444B40;
+    color: #FFFFFF;
     padding: 0.5rem;
-    background-color: #3a3a3a;
-    border: 1px solid #4a4a4a;
-    border-radius: 4px;
-    color: white;
+    border-radius: 10px;
 }
 
-.section button {
-    padding: 0.5rem 1rem;
-    background-color: #0066ff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-const URL = 'https://form-handler-app.onrender.com/api'
+const URL = 'http://localhost:3000/api'
 
 export const login =(data)=>{
     return fetch(`${URL}/auth/login`,{
@@ -20,6 +20,35 @@ export const register = (data)=>{
         body : JSON.stringify(data)
     })
 }
+
+export const sendInvite = async (data) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${URL}/share/invite`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Error sending invite');
+    return response.json();
+};
+
+export const generateShareLink = async (data) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${URL}/share/link`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Error generating share link');
+    return response.json();
+};
+
 
 export const getWorkspaceData = async () => {
     const token = localStorage.getItem('token');

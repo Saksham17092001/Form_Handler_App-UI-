@@ -84,6 +84,10 @@ const Dashboard = () => {
     setDarkMode((prev) => !prev);
   };
 
+  const handleShareDashboard = () => {
+    setShowShareModal(true);
+};
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -138,7 +142,10 @@ const Dashboard = () => {
           </label>
           <span className={styles.modeLabel}>Light</span>
         </div>
-        <div className={styles.extRight}><button className={styles.shareBtn}>Share</button></div>
+        <div className={styles.extRight}><button onClick={handleShareDashboard}
+         className={styles.shareBtn}>Share
+        </button>
+        </div>
       </div>
 
       <div className={styles.createFolder}>
@@ -216,14 +223,11 @@ const Dashboard = () => {
         onDelete={handleDeleteForm}
       />
 
-      {showShareModal && (
-        <ShareModal
-          isVisible={showShareModal}
-          onClose={() => {
-            setShowShareModal(false);
-          }}
-        />
-      )}
+      <ShareModal
+        isVisible={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        workspaceId={user.id} // Pass the workspace or user ID
+      />
     </div>
   );
 };

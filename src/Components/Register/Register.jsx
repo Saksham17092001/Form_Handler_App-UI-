@@ -15,6 +15,13 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setError("enter same password in both fields");
+      return;
+    }
+
+    setError(""); // Clear error if passwords match
+    
     const data = { name, email, password, confirmPassword };
 
     try {
@@ -23,16 +30,17 @@ const Register = () => {
         alert("Registration successful");
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Registration failed");
+        alert(errorData.message || "Registration failed");
       }
     } catch (err) {
       console.error("Register error:", err);
-      setError("Something went wrong, please try again later.");
+      alert("Something went wrong, please try again later.");
     }
   };
   const handleBack = ()=>{
     navigate(-1)
   }
+  
 
   return (
     <div className={styles.registerContainer}>
@@ -77,7 +85,11 @@ const Register = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+        <div className={styles.errorMessage}>
+        {error && <p >{error}</p>}
         </div>
+        </div>
+        
         <button type="submit" className={styles.submitButton}>Sign Up</button>
         <h6>OR</h6>
         <button className={styles.googleButton}><img src={googleImg}/>Sign in with Google</button>
