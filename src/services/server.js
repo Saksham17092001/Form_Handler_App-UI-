@@ -1,4 +1,4 @@
-const URL = 'http://localhost:3000/api'
+const URL = 'https://form-handler-app.onrender.com/api'
 
 export const login =(data)=>{
     return fetch(`${URL}/auth/login`,{
