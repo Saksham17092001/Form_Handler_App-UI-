@@ -1,106 +1,259 @@
+/* General layout */
 .formEditor {
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #1a1a1a;
-    color: white;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
 }
 
+/* Header */
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: #2a2a2a;
-    border-bottom: 1px solid #3a3a3a;
+    justify-content: space-between;
+    padding: 0.8rem;
+    background-color: var(--bg-header);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 10px;
 }
 
+/* Form Name Input */
 .formNameInput {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    padding: 0.5rem;
-    border-radius: 4px;
-    width: 300px;
+    flex: 1;
+    font-size: 1rem;
+    padding: 0.3rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--bg-input);
+    color: var(--text-color);
 }
 
-.formNameInput:focus {
-    background-color: #3a3a3a;
-    outline: none;
-}
-
-.actions {
+/* Tabs (Flow and Response) */
+.tabs {
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
+    justify-content: center; 
+    flex: 1;
 }
 
-.saveBtn, .shareBtn {
-    padding: 0.5rem 1.5rem;
-    border-radius: 4px;
+.tab {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     border: none;
     cursor: pointer;
-    font-weight: 500;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.tab:hover {
+    background-color: var(--bg-tab-hover);
+}
+
+.activeTab {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid #7EA6FF;
+}
+
+/* Actions (Save and Share Buttons) */
+.actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.saveBtn,
+.shareBtn {
+    padding: 0.25rem 0.9rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .saveBtn {
-    background-color: #0066ff;
+    background: #4ADE80CC;
     color: white;
 }
 
 .shareBtn {
-    background-color: #404040;
+    background: #1A5FFF;
     color: white;
+    cursor: pointer;
 }
 
 .shareBtn:disabled {
-    opacity: 0.5;
+    background-color: var(--btn-disabled);
     cursor: not-allowed;
 }
 
+/* Content */
 .editorContent {
     display: flex;
     flex: 1;
-    overflow: hidden;
 }
 
+/* Sidebar */
 .sidebar {
-    width: 250px;
-    background-color: #2a2a2a;
+    width: 18%;
+    background-color: var(--bg-section);
+    border: 1px solid var(--border-color);
     padding: 1rem;
-    overflow-y: auto;
+    margin-left: 1vw;
+    border-radius: 5px;
+    height: 100vh;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-.section {
-    margin-bottom: 2rem;
+.section{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-.section h3 {
-    color: #999;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+.sidebar h6 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: bold;
+    text-align: left;
+    margin-left: 0;
 }
 
 .section button {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 0.5rem;
-    background-color: #3a3a3a;
-    border: none;
-    border-radius: 4px;
-    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center; /* Aligns the image and text vertically in the middle */
+    justify-content: flex-start; /* Aligns content to the left */
+    width: 48%;
+    padding: 0.7rem;
+    margin-bottom: 0.25rem;
+    background-color: var(--btn-secondary);
+    color: var(--btn-text);
+    border: 1px solid var(--button-border-color);
+    border-radius: 0.5rem;
+    gap: 0.5rem; /* Adds spacing between the image and text */
     cursor: pointer;
-    text-align: left;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .section button:hover {
-    background-color: #4a4a4a;
+    background-color: var(--btn-secondary-hover);
 }
 
+/* Canvas */
 .canvas {
     flex: 1;
-    padding: 2rem;
+    padding: 1rem;
+    background-color: var(--bg-canvas);
     overflow-y: auto;
-    background-color: #1a1a1a;
+    border: none;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* */
+
+
+.right{ 
+    display: flex;
+    justify-content: flex-end; 
+    gap: 10px;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--btn-primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.closeButton{
+    background-color: var(--bg-color);
+    border: none;
+    box-shadow: none;
+}
+
+/* Dark Theme */
+.dark {
+    --bg-color: #1F1F23;
+    --bg-header: #18181B;
+    --bg-section: #18181B;
+    --bg-input: #2a2a2a;
+    --bg-tab-hover: #333;
+    --bg-canvas: #121212;
+
+    --text-color: #ffffff;
+    --border-color: #FFFFFF29;
+    --button-border-color: #27272A;
+
+    --btn-primary: #1A5FFF;
+    --btn-secondary:  #1F1F23;
+    --btn-secondary-hover: #444;
+    --btn-disabled: #555;
+    --btn-text: #ffffff;
+}
+
+/* Light Theme */
+.light {
+    --bg-color: #ffffff;
+    --bg-header:  #ffffff;
+    --bg-section: #ffffff;
+    --bg-input: #ffffff;
+    --bg-tab-hover: #dcdcdc;
+    --bg-canvas:  #ffffff;
+
+    --text-color: #000000;
+    --border-color: #00000029;
+    --button-border-color : #D6D6D6;
+
+    --btn-primary: #007bff;
+    --btn-secondary: #ffffff;
+    --btn-secondary-hover: #d4d4d4;
+    --btn-disabled: #d3d3d3;
+    --btn-text: #000000;
 }
