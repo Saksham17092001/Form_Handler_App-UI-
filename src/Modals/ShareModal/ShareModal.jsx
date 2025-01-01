@@ -5,15 +5,20 @@ import closeImg from '../../assets/close.png';
 
 const ShareModal = ({ isVisible, onClose, workspaceId }) => {
     const [email, setEmail] = useState('');
-    const [permission, setPermission] = useState('view'); // Default to 'view'
-    const [shareLink, setShareLink] = useState('');
+    const [permission, setPermission] = useState('edit'); // Default to 'view'
 
     const handleSendInvite = async () => {
+        if (!email) {
+            alert('Please enter a valid email.');
+            return;
+        }
         try {
             await sendInvite({ email, permission, workspaceId });
             alert('Invite sent successfully!');
+            setEmail(''); // Clear email field
         } catch (error) {
             console.error('Error sending invite:', error.message);
+            alert('Failed to send invite.');
         }
     };
 
@@ -21,8 +26,11 @@ const ShareModal = ({ isVisible, onClose, workspaceId }) => {
         try {
             const { link } = await generateShareLink({ permission, workspaceId });
             setShareLink(link);
+            navigator.clipboard.writeText(link); // Automatically copy link to clipboard
+            alert('Link copied to clipboard!');
         } catch (error) {
             console.error('Error generating share link:', error.message);
+            alert('Failed to generate link.');
         }
     };
 
@@ -31,35 +39,41 @@ const ShareModal = ({ isVisible, onClose, workspaceId }) => {
     return (
         <div className={styles.shareModalOverlay}>
             <div className={styles.shareModal}>
-                <button onClick={onClose} className={styles.closeButton}><img src={closeImg}/></button>
-                <div className={styles.inviteSection}>
+                <button onClick={onClose} className={styles.closeButton}>
+                    <img src={closeImg} alt="Close" />
+                </button>
+                <div className={styles.topSection}>
                     <p>Invite by Email</p>
-                    <input
-                        type="email"
-                        placeholder="Enter email id"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    {/* <select
+                    <div  className={styles.permissionDropdown}>
+                    <select
                         value={permission}
                         onChange={(e) => setPermission(e.target.value)}
+                       className={styles.permissionDropdown}
                     >
-                        <option value="view">View</option>
-                        <option value="edit">Edit</option>
-                    </select> */}
-                    <button onClick={handleSendInvite} className={styles.inviteBtn}>Send Invite</button>
+                    <option value="edit"className={styles.drop}>Edit</option>
+                    <option value="view" className={styles.drop}>View</option>
+                    </select>
+                    </div>
+                    </div>
+                   
+
+                <div className={styles.inviteSection}>
+                    <input
+                        type="email"
+                        placeholder="Enter email address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={styles.emailInput}
+                    />
+                    <button onClick={handleSendInvite} className={styles.inviteBtn}>
+                        Send Invite
+                    </button>
                 </div>
                 <div className={styles.linkSection}>
                     <p>Invite by Link</p>
-                    {/* <select
-                        value={permission}
-                        onChange={(e) => setPermission(e.target.value)}
-                    >
-                        <option value="view">View</option>
-                        <option value="edit">Edit</option>
-                    </select> */}
-                    <button onClick={handleGenerateLink} className={styles.inviteBtn}>Copy Link</button>
-                    {shareLink && <input type="text" readOnly value={shareLink} />}
+                    <button onClick={handleGenerateLink} className={styles.inviteBtn}>
+                        Copy Link
+                    </button>
                 </div>
             </div>
         </div>

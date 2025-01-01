@@ -59,18 +59,26 @@ const Setting = () => {
     return (
         <div className={styles.settings}>
             <h2>Settings</h2>
+            <div>
+            <img src = {userImg}/>
             <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name"
             />
+            </div>
+            <div>
+                <img src ={lockImg}/>
             <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Update Email"
             />
+            </div>
+            <div>
+            <img src ={lockImg}/>
             <input
                 type="password"
                 value={oldPassword}
@@ -78,12 +86,16 @@ const Setting = () => {
                 placeholder="Old Password"
                 required
             />
+            </div>
+            <div>
+            <img src ={lockImg}/>
             <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="New Password"
             />
+            </div>
             <button onClick={handleUpdate} className={styles.settingBtn}>Update</button>
             <button onClick={handleLogout} className={styles.logoutBtn}><img src={delImg}/> Log out</button>
         </div>

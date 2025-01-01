@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [folders, setFolders] = useState([]);
   const [forms, setForms] = useState([]);
   const [newFolderName, setNewFolderName] = useState("");
+  const [selectedFolder, setSelectedFolder] = useState(null); // New state
   const [darkMode, setDarkMode] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -86,7 +87,7 @@ const Dashboard = () => {
 
   const handleShareDashboard = () => {
     setShowShareModal(true);
-};
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -158,11 +159,18 @@ const Dashboard = () => {
         </button>
         <div className={styles.folderContainer}>
           {folders.map((folder) => (
-            <div key={folder._id} className={styles.folderCard}>
+            <div
+              key={folder._id}
+              className={`${styles.folderCard} ${
+                selectedFolder === folder._id ? styles.selected : ""
+              }`} // Apply selected style
+              onClick={() => setSelectedFolder(folder._id)} // Handle selection
+            >
               <p>{folder.name}</p>
               <button
                 className={styles.deleteButton}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setFolderToDelete(folder._id);
                   setShowDeleteModal(true);
                 }}
@@ -175,7 +183,7 @@ const Dashboard = () => {
       </div>
 
       <div className={styles.formSection}>
-        <button
+      <button
           onClick={() => navigate("/form/new")}
           className={styles.formBtn}
         >
@@ -202,6 +210,7 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
+
       </div>
 
       <CreateModal

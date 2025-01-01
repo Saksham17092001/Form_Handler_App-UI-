@@ -121,7 +121,7 @@ const FormEditor = () => {
           <button onClick={handleSave} className={styles.saveBtn}>
             Save
           </button>
-          <button className={styles.closeButton}>
+          <button className={styles.closeButton} onClick={()=> navigate(-1)}>
             <img src={closeImg} />
           </button>
         </div>
