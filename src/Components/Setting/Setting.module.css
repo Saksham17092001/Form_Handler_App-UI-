@@ -37,7 +37,7 @@
     width: 50%;
     border: none;
 }
-input:focus {
+.settings input:focus {
     outline: none;    /* Removes the default focus outline */
     border: none;     /* Removes the border */
 }
